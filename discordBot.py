@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 from commandHistory import History
+import asyncio 
+
 
 #Read in token from file
 f = open('/home/root1/Desktop/USS_Bot/token.txt', "r")
@@ -11,55 +13,62 @@ f.close()
 #declare the bot
 bot = commands.Bot(command_prefix='!')
 
+client = discord.Client()
 
 
 #declare hello command
-@bot.command()
+@bot.command(pass_context=True)
 async def hello(ctx):
-        await ctx.send('Hello! {0.author.mention} '.format(ctx.message))
+        await bot.say('Hello! {0.author.mention} '.format(ctx.message))
 
 
 
 #declare goodbye command
-@bot.command()
+@bot.command(pass_context=True)
 async def goodbye(ctx):
     await bot.close()
 
 
 
 #declare info command
-@bot.command()
+@bot.command(pass_context=True)
 async def info(ctx):
     #embed info in discord, title, description, text color
     embed = discord.Embed(title="USS Bot" , description="The Mighty Bot", color=0x000000)
 
     #embed author section
     embed.add_field(name="Author", value="Napoleon3500")
-    await ctx.send(embed=embed)
+    await bot.say(embed=embed)
 
 
 
 #declare history function
-@bot.command()
+@bot.command(pass_context=True)
 async def history(ctx):
     #see commandHistory.py
     text = History()
-    await ctx.send(text.format(ctx.message))
+    await bot.say(text.format(ctx.message))
 
 
 
 #declare WAR function
-@bot.command()
+@bot.command(pass_context=True)
 async def WAR(ctx):
-    await ctx.send('War Were Declared'.format(ctx.message))
-    
+    await bot.say('War Were Declared'.format(ctx.message))
+    author = ctx.message.author.voice.voice_channel
+    link = 'https://www.youtube.com/watch?v=TS3kiRYcDAo'
+    voice = await bot.join_voice_channel(author)
+    player = await voice.create_ytdl_player(link)
+    player.start()
+
+
 
 #remove built in help command to declare our own
 bot.remove_command('help')
 
 
 #declare help command
-@bot.command()
+@bot.command(pass_context=True)
 async def help(ctx, command):
     
     #create embed object
@@ -83,7 +92,7 @@ async def help(ctx, command):
 
 
 
-    await ctx.send(embed=embed)
+    await bot.say(embed=embed)
 
 
 @bot.event
