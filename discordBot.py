@@ -1,11 +1,12 @@
 import discord
 from discord.ext import commands
 from commandHistory import History
+from commandInsult import insults
 import asyncio 
 
 
 #Read in token from file
-f = open('/home/root1/Desktop/USS_Bot/token.txt', "r")
+f = open('/home/TOKEN.txt', "r")
 TOKEN = f.read().replace('\n','')
 f.close()
 
@@ -51,15 +52,32 @@ async def history(ctx):
 
 
 
+#declare insult command
+@bot.command(pass_context=True)
+async def insult(ctx, person:discord.Member = None):
+    text = insults()
+   # await bot.say(person.mention)
+    await bot.say(person.mention + ' ' + text.format(ctx.message))
+
+
+
 #declare WAR function
 @bot.command(pass_context=True)
 async def WAR(ctx):
     await bot.say('War Were Declared'.format(ctx.message))
-    author = ctx.message.author.voice.voice_channel
-    link = 'https://www.youtube.com/watch?v=TS3kiRYcDAo'
-    voice = await bot.join_voice_channel(author)
-    player = await voice.create_ytdl_player(link)
-    player.start()
+   # author = ctx.message.author.voice.voice_channel
+   # link = 'https://www.youtube.com/watch?v=TS3kiRYcDAo'
+   # voice = await bot.join_voice_channel(author)
+   # player = await voice.create_ytdl_player(link)
+   # player.start()
+
+
+
+@bot.command(pass_context=True)
+async def play(ctx, song):
+    bot.say('Searching'.format(ctx.message))
+    #call to commandPlay.py
+
 
 
 
