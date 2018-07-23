@@ -73,10 +73,7 @@ async def WAR(ctx):
 
 
 
-@bot.command(pass_context=True)
-async def play(ctx, song):
-    bot.say('Searching'.format(ctx.message))
-    #call to commandPlay.py
+
 
 
 
@@ -102,6 +99,8 @@ async def help(ctx, command):
         embed.add_field(name = '!WAR' , value = 'Soon war were delcared' , inline = False)
     elif command in ('!help' , 'help'):
         embed.add_field(name = '!help command' , value = 'This is how you do it' , inline = False)
+    elif command in ('!insult', 'insult'):
+        embed.add_field(name = '!insult person' , value = 'Insult someone' , inline = False)
     elif command == 'all':
         embed.add_field(name = '!hello' , value = 'Says hello' , inline = False)
         embed.add_field(name = '!history' , value = 'Tells you what happened today in naval hostory' , inline = False)
