@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from commandHistory import History
 from commandInsult import insults
+from commandStats import getStats
 import asyncio 
 
 
@@ -59,6 +60,37 @@ async def insult(ctx, person:discord.Member = None):
    # await bot.say(person.mention)
     await bot.say(person.mention + ' ' + text.format(ctx.message))
 
+#declare stats command
+@bot.command(pass_context=True)
+async def stats(ctx, username):
+
+    #call stats function
+    STATS = getStats(username)
+    win_rate = STATS['win_rate']
+    win_rate = '{0:.2%}'.format(win_rate)
+    
+    if STATS['win_rate'] < 0.45:
+        decrip = 'Bad'
+    elif STATS['win_rate'] >= 0.45 and STATS['win_rate'] < 0.50:
+        descrip = 'Average'
+    elif STATS['win_rate'] >= 0.50 and STATS['win_rate'] < 0.54:
+        descrip = 'Good'
+    elif STATS['win_rate'] >= 0.54 and STATS['win_rate'] < 0.57:
+        descrip = 'Very Good'
+    elif STATS['win_rate'] >= 0.57 and STATS['win_rate'] < 0.60:
+        descrip = 'Unicum'
+    else:
+        descrip == 'Super Unicum'
+
+    #embed stats to be displayed
+    embed = discord.Embed(title= username, description = descrip, color=0x000000)
+    embed.add_field(name = 'Win Rate' , value = win_rate, inline = False)
+    embed.add_field(name='Average XP', value = STATS['avg_xp'], inline = True)
+    embed.add_field(name = 'Max XP Earned', value = STATS['max_xp'], inline = True)
+    embed.add_field(name = 'Average Damage', value = STATS['avg_damage'], inline = True)
+    embed.add_field(name = 'Max Damage Dealt', value = STATS['max_damage_dealt'], inline = True)
+
+    await bot.say(embed=embed)
 
 
 #declare WAR function
@@ -86,6 +118,9 @@ bot.remove_command('help')
 @bot.command(pass_context=True)
 async def help(ctx, command):
     
+    if(command == ''):
+        command = 'all'
+
     #create embed object
     embed = discord.Embed(title = 'USS Bot' , description = 'Armament:' , color = 0x000000)
     
@@ -101,10 +136,14 @@ async def help(ctx, command):
         embed.add_field(name = '!help command' , value = 'This is how you do it' , inline = False)
     elif command in ('!insult', 'insult'):
         embed.add_field(name = '!insult person' , value = 'Insult someone' , inline = False)
+    elif command in ('!stats' , 'stats'):
+        embed.add_field(name='!stats username' , value=' displays World of Warships Stats', inline = False)
     elif command == 'all':
         embed.add_field(name = '!hello' , value = 'Says hello' , inline = False)
         embed.add_field(name = '!history' , value = 'Tells you what happened today in naval hostory' , inline = False)
         embed.add_field(name = '!WAR' , value = 'Soon war were delcared' , inline = False)
+        embed.add_field(name = '!insult person' , value = 'Insult someone' , inline = False)
+        embed.add_field(name='!stats username' , value=' displays World of Warships Stats', inline = False)
         embed.add_field(name = '!help command' , value = 'This is how you do it' , inline = False)
 
 
