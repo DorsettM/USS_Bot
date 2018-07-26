@@ -69,8 +69,10 @@ async def stats(ctx, username):
     win_rate = STATS['win_rate']
     win_rate = '{0:.2%}'.format(win_rate)
     
+
+
     if STATS['win_rate'] < 0.45:
-        decrip = 'Bad'
+        descrip = 'Bad'
     elif STATS['win_rate'] >= 0.45 and STATS['win_rate'] < 0.50:
         descrip = 'Average'
     elif STATS['win_rate'] >= 0.50 and STATS['win_rate'] < 0.54:
@@ -80,18 +82,22 @@ async def stats(ctx, username):
     elif STATS['win_rate'] >= 0.57 and STATS['win_rate'] < 0.60:
         descrip = 'Unicum'
     else:
-        descrip == 'Super Unicum'
+        descrip = 'Super Unicum'
 
     #embed stats to be displayed
     embed = discord.Embed(title= username, description = descrip, color=0x000000)
     embed.add_field(name = 'Win Rate' , value = win_rate, inline = False)
+    embed.add_field(name = 'Battles' , value = STATS['battles'] , inline = True)
     embed.add_field(name='Average XP', value = STATS['avg_xp'], inline = True)
     embed.add_field(name = 'Max XP Earned', value = STATS['max_xp'], inline = True)
+    embed.add_field(name = 'Max XP Ship' , value = STATS['max_xp_ship_name'] , inline = True)
     embed.add_field(name = 'Average Damage', value = STATS['avg_damage'], inline = True)
     embed.add_field(name = 'Max Damage Dealt', value = STATS['max_damage_dealt'], inline = True)
+    
 
     await bot.say(embed=embed)
-
+    #await bot.say('Max XP Ship'.format(ctx.message))
+    #await bot.say(STATS['max_xp_ship_image'].format(ctx.message))
 
 #declare WAR function
 @bot.command(pass_context=True)

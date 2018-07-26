@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import json
 
 FINAL = {}
-SHIPS = {}
 
 
 
@@ -12,7 +11,7 @@ def getRequest(url):
     #request information from wargaming
     wargaming = requests.get(url)
     c = wargaming.content
-    soup = BeautifulSoup(c)
+    soup = BeautifulSoup(c, 'html.parser')
     info = json.loads(str(soup))
     info = info['data']
     return info
@@ -30,9 +29,6 @@ def getStats(username):
     f.close()
 
 
-    #list of ships and ship stats
-    url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + app_id
-    SHIPS = getRequest(url)
     
     
     #URL to get account_id
@@ -67,11 +63,24 @@ def getStats(username):
     xp = temp3['xp']
 
     max_xp = temp3['max_xp']
-    max_xp_ship = temp3['max_xp_ship_id']
+    max_xp_ship_id = temp3['max_xp_ship_id']
     
     max_damage_dealt = temp3['max_damage_dealt']
     max_damage_ship = temp3['max_damage_dealt_ship_id']
     
+    #request information on max damage ship and max xp ship
+    
+
+    url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + app_id + '&ship_id=' + str(max_xp_ship_id) + ''
+     
+    max_xp_ship_info = getRequest(url)
+    max_xp_ship_info = max_xp_ship_info[str(max_xp_ship_id)]
+    max_xp_ship_image = max_xp_ship_info['images']
+    max_xp_Ship_image = max_xp_ship_image['small']
+    max_xp_ship_name = max_xp_ship_info['name']
+    
+    
+
     damage_dealt = temp3['damage_dealt']
 
     #calculate stats
@@ -85,13 +94,15 @@ def getStats(username):
     FINAL['avg_xp'] = int(avg_xp)
     FINAL['max_damage_dealt'] = max_damage_dealt
     FINAL['avg_damage'] = '{0:.2f}'.format(avg_damage)
-    
+    FINAL['battles'] = games
+    FINAL['max_xp_ship_name'] = max_xp_ship_name
+    FINAL['max_xp_ship_image'] = max_xp_ship_image['small']
 
-    #Ship IDs are broken??
+    #Ship IDs are broken
     #FINAL['max_xp_ship'] = SHIPS[max_xp_ship]
     #FINAL['max_damage_ship'] = SHIPS[max_damage_ship] 
     
 
     return FINAL
 
-
+getStats('Napoleon3500')
