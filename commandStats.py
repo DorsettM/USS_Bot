@@ -79,7 +79,13 @@ def getStats(username):
     max_xp_Ship_image = max_xp_ship_image['small']
     max_xp_ship_name = max_xp_ship_info['name']
     
-    
+    url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + app_id + '&ship_id=' + str(max_damage_ship) + ''
+
+    max_damage_ship_info = getRequest(url)
+    max_damage_ship_info = max_damage_ship_info[str(max_damage_ship)]
+    max_damage_ship_image = max_damage_ship_info['images']
+    max_damage_Ship_image = max_damage_ship_image['small']
+    max_damage_ship_name = max_damage_ship_info['name']
 
     damage_dealt = temp3['damage_dealt']
 
@@ -93,16 +99,16 @@ def getStats(username):
     FINAL['max_xp'] = max_xp
     FINAL['avg_xp'] = int(avg_xp)
     FINAL['max_damage_dealt'] = max_damage_dealt
+    FINAL['max_damage_ship'] = max_damage_ship_name
+    FINAL['max_damage_ship_image'] = max_damage_ship_image['small']
     FINAL['avg_damage'] = '{0:.2f}'.format(avg_damage)
     FINAL['battles'] = games
     FINAL['max_xp_ship_name'] = max_xp_ship_name
     FINAL['max_xp_ship_image'] = max_xp_ship_image['small']
 
-    #Ship IDs are broken
-    #FINAL['max_xp_ship'] = SHIPS[max_xp_ship]
-    #FINAL['max_damage_ship'] = SHIPS[max_damage_ship] 
+     
     
 
     return FINAL
 
-getStats('Napoleon3500')
+

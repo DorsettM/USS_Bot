@@ -86,14 +86,15 @@ async def stats(ctx, username):
 
     #embed stats to be displayed
     embed = discord.Embed(title= username, description = descrip, color=0x000000)
-    embed.add_field(name = 'Win Rate' , value = win_rate, inline = False)
+    embed.add_field(name = 'Win Rate' , value = win_rate, inline = True)
     embed.add_field(name = 'Battles' , value = STATS['battles'] , inline = True)
     embed.add_field(name='Average XP', value = STATS['avg_xp'], inline = True)
     embed.add_field(name = 'Max XP Earned', value = STATS['max_xp'], inline = True)
     embed.add_field(name = 'Max XP Ship' , value = STATS['max_xp_ship_name'] , inline = True)
     embed.add_field(name = 'Average Damage', value = STATS['avg_damage'], inline = True)
     embed.add_field(name = 'Max Damage Dealt', value = STATS['max_damage_dealt'], inline = True)
-    
+    embed.add_field(name = 'Max Damage Ship' , value = STATS['max_damage_ship'] , inline = False)
+    embed.set_image(url = STATS['max_damage_ship_image'])
 
     await bot.say(embed=embed)
     #await bot.say('Max XP Ship'.format(ctx.message))
