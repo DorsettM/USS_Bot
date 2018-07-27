@@ -15,7 +15,7 @@ f.close()
 #declare the bot
 bot = commands.Bot(command_prefix='!')
 
-client = discord.Client()
+
 
 
 #declare hello command
@@ -56,9 +56,14 @@ async def history(ctx):
 #declare insult command
 @bot.command(pass_context=True)
 async def insult(ctx, person:discord.Member = None):
-    text = insults()
-   # await bot.say(person.mention)
-    await bot.say(person.mention + ' ' + text.format(ctx.message))
+    
+    f = ctx.message.server.me    
+    if person == f:
+        await bot.say("You're not as funny as you think...".format(ctx.message))
+    else:
+        text = insults()
+        # await bot.say(person.mention)
+        await bot.say(person.mention + ' ' + text.format(ctx.message))
 
 #declare stats command
 @bot.command(pass_context=True)
