@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import discord
 from discord.ext import commands
 from commandHistory import History
@@ -118,11 +119,12 @@ async def war(ctx):
 
 @bot.command(pass_context=True)
 async def update(ctx):
-    process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
-    output = process.communicate()[0]
+
+
+    call('git' , 'pull')
     
     
-    os.execv('/home/discordBot/USS_Bot/discordbot.py', args)
+    #os.execv('/home/discordBot/USS_Bot/discordBot.py', sys.argv)
 
 
 
