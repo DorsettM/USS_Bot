@@ -122,7 +122,7 @@ async def war(ctx):
 async def update(ctx):
 
 
-    syst = call('git ' + 'pull', shell = True)
+    syst = call('git ' + 'pull' + 'https://github.com/DorsettM/USS_Bot' , shell = True)
     
     
     
