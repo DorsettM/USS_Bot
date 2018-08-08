@@ -6,6 +6,7 @@ from commandInsult import insults
 from commandStats import getStats
 import asyncio 
 import subprocess
+from subprocess import call
 import os
 import sys
 
@@ -121,7 +122,7 @@ async def war(ctx):
 async def update(ctx):
 
 
-    sys = Call('git' + 'pull', shell = True)
+    sys = call('git ' + 'pull', shell = True)
     print(sys)
     
     
