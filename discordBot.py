@@ -131,6 +131,9 @@ async def update(ctx):
 
 
 
+@bot.command(pass_context=True)
+async def jordan(ctx):
+    await bot.say('You were wrong Jordan!'.format(ctx.message))
 
 
 
