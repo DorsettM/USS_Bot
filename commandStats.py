@@ -68,24 +68,20 @@ def getStats(username):
     max_damage_dealt = temp3['max_damage_dealt']
     max_damage_ship = temp3['max_damage_dealt_ship_id']
     
-    #request information on max damage ship and max xp ship
+    #request information on max damage ship 
     
-
-    url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + app_id + '&ship_id=' + str(max_xp_ship_id) + ''
-     
-    max_xp_ship_info = getRequest(url)
-    max_xp_ship_info = max_xp_ship_info[str(max_xp_ship_id)]
-    max_xp_ship_image = max_xp_ship_info['images']
-    max_xp_Ship_image = max_xp_ship_image['small']
-    max_xp_ship_name = max_xp_ship_info['name']
     
     url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + app_id + '&ship_id=' + str(max_damage_ship) + ''
 
     max_damage_ship_info = getRequest(url)
     max_damage_ship_info = max_damage_ship_info[str(max_damage_ship)]
-    max_damage_ship_image = max_damage_ship_info['images']
-    max_damage_Ship_image = max_damage_ship_image['small']
-    max_damage_ship_name = max_damage_ship_info['name']
+    if 'null' in max_damage_ship_info:
+        max_damage_ship_name = 'Not Found'
+        max_damage_ship_image = 'http://www.51allout.co.uk/wp-content/uploads/2012/02/Image-not-found.gif'
+    else:
+        max_damage_ship_image = max_damage_ship_info['images']
+        max_damage_Ship_image = max_damage_ship_image['small']
+        max_damage_ship_name = max_damage_ship_info['name']
 
     damage_dealt = temp3['damage_dealt']
 
@@ -103,10 +99,7 @@ def getStats(username):
     FINAL['max_damage_ship_image'] = max_damage_ship_image['small']
     FINAL['avg_damage'] = '{0:.2f}'.format(avg_damage)
     FINAL['battles'] = games
-    FINAL['max_xp_ship_name'] = max_xp_ship_name
-    FINAL['max_xp_ship_image'] = max_xp_ship_image['small']
-
-     
+    
     
 
     return FINAL

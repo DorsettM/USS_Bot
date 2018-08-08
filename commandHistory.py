@@ -1,5 +1,3 @@
-import discord
-from discord.ext import commands
 import requests
 from bs4 import BeautifulSoup
 
@@ -13,11 +11,9 @@ def History():
     #go get the page
     page = requests.get(link_page)
 
-    
+    #Parse the page and return the desired element
     soup = BeautifulSoup(page.text, 'html.parser')
-
     name_box = soup.find(class_='storybody')
-
     name = name_box.get_text()
 
     return name

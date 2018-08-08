@@ -95,19 +95,17 @@ async def stats(ctx, username):
     embed.add_field(name = 'Battles' , value = STATS['battles'] , inline = True)
     embed.add_field(name='Average XP', value = STATS['avg_xp'], inline = True)
     embed.add_field(name = 'Max XP Earned', value = STATS['max_xp'], inline = True)
-    embed.add_field(name = 'Max XP Ship' , value = STATS['max_xp_ship_name'] , inline = True)
     embed.add_field(name = 'Average Damage', value = STATS['avg_damage'], inline = True)
     embed.add_field(name = 'Max Damage Dealt', value = STATS['max_damage_dealt'], inline = True)
     embed.add_field(name = 'Max Damage Ship' , value = STATS['max_damage_ship'] , inline = False)
     embed.set_image(url = STATS['max_damage_ship_image'])
 
     await bot.say(embed=embed)
-    #await bot.say('Max XP Ship'.format(ctx.message))
-    #await bot.say(STATS['max_xp_ship_image'].format(ctx.message))
+    
 
 #declare WAR function
 @bot.command(pass_context=True)
-async def WAR(ctx):
+async def war(ctx):
     await bot.say('War Were Declared'.format(ctx.message))
    # author = ctx.message.author.voice.voice_channel
    # link = 'https://www.youtube.com/watch?v=TS3kiRYcDAo'
@@ -126,6 +124,8 @@ async def WAR(ctx):
 bot.remove_command('help')
 
 
+
+
 #declare help command
 @bot.command(pass_context=True)
 async def help(ctx, command):
@@ -141,8 +141,8 @@ async def help(ctx, command):
     if command in ('!hello' , 'hello'):
         embed.add_field(name = '!hello' , value = 'Says hello' , inline = False)
     elif command in ('!history' , 'history'):
-        embed.add_field(name = '!history' , value = 'Tells you what happened today in naval hostory' , inline = False)
-    elif command in ('!WAR' , 'WAR'):
+        embed.add_field(name = '!history' , value = 'Tells you what happened today in naval history' , inline = False)
+    elif command in ('!war' , 'WAR'):
         embed.add_field(name = '!WAR' , value = 'Soon war were delcared' , inline = False)
     elif command in ('!help' , 'help'):
         embed.add_field(name = '!help command' , value = 'This is how you do it' , inline = False)
@@ -152,7 +152,7 @@ async def help(ctx, command):
         embed.add_field(name='!stats username' , value=' displays World of Warships Stats', inline = False)
     elif command == 'all':
         embed.add_field(name = '!hello' , value = 'Says hello' , inline = False)
-        embed.add_field(name = '!history' , value = 'Tells you what happened today in naval hostory' , inline = False)
+        embed.add_field(name = '!history' , value = 'Tells you what happened today in naval history' , inline = False)
         embed.add_field(name = '!WAR' , value = 'Soon war were delcared' , inline = False)
         embed.add_field(name = '!insult person' , value = 'Insult someone' , inline = False)
         embed.add_field(name='!stats username' , value=' displays World of Warships Stats', inline = False)
