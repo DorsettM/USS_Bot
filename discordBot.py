@@ -121,8 +121,8 @@ async def update(ctx):
     process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
     output = process.communicate()[0]
     
-    f.flush()
-    os.execv(__file__, sys.argv)
+    
+    os.execv('/home/discordBot/USS_Bot/discordbot.py', args)
 
 
 
