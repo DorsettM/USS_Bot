@@ -4,7 +4,9 @@ from commandHistory import History
 from commandInsult import insults
 from commandStats import getStats
 import asyncio 
-
+import subprocess
+import os
+import sys
 
 #Read in token from file
 f = open('/home/TOKEN.txt', "r")
@@ -114,6 +116,13 @@ async def war(ctx):
    # player.start()
 
 
+@bot.command(pass_context=True)
+async def update(ctx):
+    process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
+    output = process.communicate()[0]
+    
+    f.flush()
+    os.execv(__file__, sys.argv)
 
 
 
