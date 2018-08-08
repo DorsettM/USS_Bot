@@ -141,9 +141,9 @@ bot.remove_command('help')
 
 #declare help command
 @bot.command(pass_context=True)
-async def help(ctx, command):
+async def help(ctx, command=None):
     
-    if(command == ''):
+    if(command == None):
         command = 'all'
 
     #create embed object
