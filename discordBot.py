@@ -124,7 +124,8 @@ async def update(ctx):
 
     syst = call('git ' + 'pull' + 'https://github.com/DorsettM/USS_Bot' , shell = True)
     
-    
+   if syst == 0:
+       await bot.say('Update Sucessful'.format(ctx.message))
     
     os.execv('/home/discordBot/USS_Bot/discordBot.py', sys.argv)
 
