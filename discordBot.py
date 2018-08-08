@@ -121,7 +121,8 @@ async def war(ctx):
 async def update(ctx):
 
 
-    call('git' , 'pull')
+    sys = Call('git' + 'pull', shell = True)
+    print(sys)
     
     
     #os.execv('/home/discordBot/USS_Bot/discordBot.py', sys.argv)
