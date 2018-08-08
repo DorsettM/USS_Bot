@@ -122,7 +122,7 @@ async def war(ctx):
 async def update(ctx):
 
 
-    syst = call('git ' + 'pull' + 'https://github.com/DorsettM/USS_Bot' , shell = True)
+    syst = call('git ' + 'pull ' + 'https://github.com/DorsettM/USS_Bot' , shell = True)
     
     if syst == 0:
        await bot.say('Update Sucessful'.format(ctx.message))
@@ -130,10 +130,6 @@ async def update(ctx):
     os.execv('/home/discordBot/discordBot.py', sys.argv)
 
 
-
-@bot.command(pass_context=True)
-async def jordan(ctx):
-    await bot.say('You were wrong Jordan!'.format(ctx.message))
 
 
 
