@@ -127,13 +127,11 @@ async def update(ctx):
     if syst == 0:
        await bot.say('Update Sucessful'.format(ctx.message))
     
-    os.execv('/home/discordBot/USS_Bot/discordBot.py', sys.argv)
+    os.execv('/home/discordBot/discordBot.py', sys.argv)
 
 
 
-@bot.command(pass_context=True)
-async def jordan(ctx):
-    await bot.say('You were wrong Jordan!'.format(ctx.message))
+
 
 
 
