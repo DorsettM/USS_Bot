@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from player import *
 
-FINAL = {}
+
 
 
 
@@ -18,9 +19,6 @@ def getRequest(url):
 
 
 def getStats(username):
-
-    #This is the return dictionary to be used by the bot command
-    FINAL = {}
 
 
     #Get wargaming API id fromt ext file
@@ -90,18 +88,21 @@ def getStats(username):
     avg_xp = xp/games
     avg_damage = damage_dealt/games
 
-    #add variables to return dictionary
-    FINAL['win_rate'] = (win_rate)
-    FINAL['max_xp'] = max_xp
-    FINAL['avg_xp'] = int(avg_xp)
-    FINAL['max_damage_dealt'] = max_damage_dealt
-    FINAL['max_damage_ship'] = max_damage_ship_name
-    FINAL['max_damage_ship_image'] = max_damage_ship_image['small']
-    FINAL['avg_damage'] = '{0:.2f}'.format(avg_damage)
-    FINAL['battles'] = games
+    #Create player object
     
+    avg_damage = '{0:.2f}'.format(avg_damage)
+    avg_damage = '{:,}'.format(float(avg_damage))
+    win_rate = '{0:.2%}'.format(win_rate)
+    max_damage_dealt = '{:,}'.format(max_damage_dealt)
+    max_xp = '{:,}'.format(max_xp)
+    games = '{:,}'.format(games)
+    avg_xp = '{:,}'.format(int(avg_xp))
     
+    player1 = Player((win_rate), max_xp, avg_xp, max_damage_dealt, max_damage_ship_name, max_damage_ship_image['small'], avg_damage, games, username)
 
-    return FINAL
+
+    
+    
+    return player1
 
 
