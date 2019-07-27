@@ -16,7 +16,7 @@ import sys
 queue = {}
 
 #Read in token from file
-f = open('/home/TOKEN.txt', "r")
+f = open('/home/mdor/TOKEN.txt', "r")
 TOKEN = f.read().replace('\n','')
 f.close()
 
@@ -29,14 +29,14 @@ bot = commands.Bot(command_prefix='!')
 #declare hello command
 @bot.command(pass_context=True)
 async def hello(ctx):
-        await bot.say('Hello! {0.author.mention} '.format(ctx.message))
+        await ctx.send('Hello! {0.author.mention} '.format(ctx.message))
 
 
 
 #declare goodbye command
 @bot.command(pass_context=True)
 async def goodbye(ctx):
-    await bot.close()
+    await ctx.close()
 
 
 
@@ -48,7 +48,7 @@ async def info(ctx):
 
     #embed author section
     embed.add_field(name="Author", value="Napoleon3500")
-    await bot.say(embed=embed)
+    await ctx.send(embed=embed)
 
 
 
@@ -57,7 +57,10 @@ async def info(ctx):
 async def history(ctx):
     #see commandHistory.py
     text = History()
-    await bot.say(text.format(ctx.message))
+    if(len(text) > 2000):
+        mes = [text[0:1999], text[2000:]]
+    for age in mes:
+        await ctx.send(age.format(ctx.message))
 
 
 
@@ -65,12 +68,12 @@ async def history(ctx):
 @bot.command(pass_context=True)
 async def insult(ctx, person:discord.Member = None):
     
-    f = ctx.message.server.me    
+    f = ctx.bot 
     if person == f:
-        await bot.say("You're not as funny as you think...".format(ctx.message))
+        await ctx.send("You're not as funny as you think...".format(ctx.message))
     else:
         text = insults()
-        await bot.say(person.mention + ' ' + text.format(ctx.message))
+        await ctx.send(person.mention + ' ' + text.format(ctx.message))
 
 #declare stats command
 @bot.command(pass_context=True)
@@ -80,9 +83,9 @@ async def stats(ctx, username):
     try:
         player1 = getStats(username)
     except:
-        await bot.say("Player was not found!")
+        await ctx.send("Player was not found!")
     embed = player1.createEmbed()
-    await bot.say(embed=embed)
+    await ctx.send(embed=embed)
     
 
     del player1
@@ -158,7 +161,7 @@ async def help(ctx, command=None):
 
 
 
-    await bot.say(embed=embed)
+    await ctx.send(embed=embed)
 
 
 @bot.event

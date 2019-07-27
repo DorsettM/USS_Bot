@@ -22,7 +22,7 @@ def getStats(username):
 
 
     #Get wargaming API id fromt ext file
-    f = open('/home/WARGAMING.txt')
+    f = open('/home/mdor/WARGAMING.txt')
     app_id = f.read().replace('\n' , '')
     f.close()
 
